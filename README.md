@@ -10,11 +10,15 @@ FNB Facebook Navigation provides consistency and ease-of-access between FNB appl
 
 Include the css file from the build folder
 
-$ freshive.fnbNav.min.css
+``` bash
+  freshive.fnbNav.min.css
+```
 
 Include the following js file from the build folder after you have loaded jQuery
 
-$ freshive.fnbNav.min.js
+``` bash
+  freshive.fnbNav.min.js
+```
 
 
 ## License
