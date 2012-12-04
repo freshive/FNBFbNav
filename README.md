@@ -1,6 +1,6 @@
 ## Overview ##
 
-FNB Facebook Navigation provides consistency and ease-of-access between FNB applications.
+FNB Facebook Navigation provides consistency and ease-of-access between FNB applications. View a [Demo](https://fnbsocialmedia.co.za/dev/nav/) here.
 
 ## Dependencies ##
 
