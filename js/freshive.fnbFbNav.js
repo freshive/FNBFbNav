@@ -17,9 +17,8 @@
   // Create the defaults once
   var pluginName = 'FNBFbMenu',
       defaults = {
-        baseUrl: "http://fnbsocialmedia.co.za/dev/nav/",
-        dataUrl: "../nav/sample.json"
-        //dataUrl: "http://10.211.55.4:5146/api/fbmenu"
+        //dataUrl: "../nav/sample.json"
+        dataUrl: "http://fnbsocialmedia.co.za/hubbeta/api/fbmenu?callback=?"
       };
 
   // The actual plugin constructor
@@ -67,7 +66,7 @@
 
             if(this.Thumb) {
               var thumb = document.createElement("img");
-              thumb.setAttribute("src", self.options.baseUrl + this.Thumb);
+              thumb.setAttribute("src", this.Thumb);
               $li.find("a")
                 .prepend(thumb);
             }
