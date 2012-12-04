@@ -18,7 +18,7 @@
   var pluginName = 'FNBFbMenu',
       defaults = {
         //dataUrl: "../nav/sample.json"
-        dataUrl: "http://fnbsocialmedia.co.za/hubbeta/api/fbmenu?callback=?"
+        dataUrl: "//fnbsocialmedia.co.za/hubbeta/api/fbmenu?callback=?"
       };
 
   // The actual plugin constructor
