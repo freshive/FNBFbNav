@@ -2,13 +2,12 @@
 // scripts and/or other plugins which may not be closed properly.
 ;(function ( $, window, undefined ) {
 
-    "use strict"; // jshint ;_;
+    "use strict";
 
   // undefined is used here as the undefined global variable in ECMAScript 3 is
   // mutable (ie. it can be changed by someone else). undefined isn't really being
   // passed in so we can ensure the value of it is truly undefined. In ES5, undefined
   // can no longer be modified.
-
 
   // window and document are passed through as local variables rather than globals
   // as this (slightly) quickens the resolution process and can be more efficiently
@@ -38,25 +37,46 @@
   }
 
   FNBFbMenu.prototype.init = function () {
+    // Create the element
+    $(this.element).attr("id", "fnb-fb-nav").addClass("loading");
+    
     // Get data then build menu
-    $.when( this.getData() ).then($.proxy(function(data){
+    $.when( this.getData() ).then($.proxy(function(data) {
 
-      var menu = this.buildMenu($(document.createElement("ul")).addClass("topmenu"), data);
+      var menu = this.buildMenu($(document.createElement("ul")).addClass("topmenu"), this.sanitizeData(data));
 
-      $(this.element).append(menu).attr("id", "fnb-fb-nav");
+      $(this.element).append(menu)
+        .removeClass("loading")
+        .find(".topmenu")
+        .fadeIn();
 
     }, this));
 
   };
 
+  // Responsible for getting the menu data
   FNBFbMenu.prototype.getData = function () {
-    // Responsible for getting the menu data
     return $.getJSON(this.options.dataUrl);
+  };
+
+  // Have to sanitize the data until we have odata
+  // support in our api. This can then be removed
+  FNBFbMenu.prototype.sanitizeData = function (data) {
+    $.each(data, function(index, obj) {
+      obj.Children = $(obj.Children).filter(function() {
+        return this.Enabled;
+      });
+      if(obj.Children.length > 1) {
+        obj.Children.sort(function(a, b) {
+          return a.Ordinal - b.Ordinal;
+        });
+      }
+    });
+    return data;
   };
 
   FNBFbMenu.prototype.buildMenu = function ($parent, data) {
     var self = this;
-
     $.each(data, function () {
         if (this.Label) {
             // create LI element and append it to the $parent element.
@@ -77,8 +97,8 @@
               var $ul = $(document.createElement("ul")).addClass("submenu");
               $ul.appendTo(
                 $li.find("a")
-                .append($(document.createElement("span")).addClass("arrow-down"))
-                .end()
+                  .append($(document.createElement("span")).addClass("arrow-down"))
+                  .end()
                 );
               self.buildMenu($ul, this.Children);
             }
